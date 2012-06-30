@@ -387,7 +387,7 @@ inline Mat::operator CvMat() const
 {
     CV_DbgAssert(dims <= 2);
     CvMat m = cvMat(rows, dims == 1 ? 1 : cols, type(), data);
-    m.step = (int)step[0];
+    //m.step = (int)step[0];
     m.type = (m.type & ~CONTINUOUS_FLAG) | (flags & CONTINUOUS_FLAG);
     return m;
 }

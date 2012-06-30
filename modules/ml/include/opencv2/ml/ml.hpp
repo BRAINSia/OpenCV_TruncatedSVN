@@ -954,23 +954,37 @@ public:
     CvForestTree();
     virtual ~CvForestTree();
 
-    virtual bool train( CvDTreeTrainData* trainData, const CvMat* _subsample_idx, CvRTrees* forest );
-
     virtual int get_var_count() const {return data ? data->var_count : 0;}
     virtual void read( CvFileStorage* fs, CvFileNode* node, CvRTrees* forest, CvDTreeTrainData* _data );
 
     /* dummy methods to avoid warnings: BEGIN */
+    /* Invalid: Throws assert if it is used */
     virtual bool train( const CvMat* trainData, int tflag,
                         const CvMat* responses, const CvMat* varIdx=0,
                         const CvMat* sampleIdx=0, const CvMat* varType=0,
                         const CvMat* missingDataMask=0,
                         CvDTreeParams params=CvDTreeParams() );
 
+    /* Invalid: Throws assert if it is used */
     virtual bool train( CvDTreeTrainData* trainData, const CvMat* _subsample_idx );
+    /* Invalid: Throws assert if it is used */
+    virtual bool train( CvMLData* trainData, CvDTreeParams params=CvDTreeParams() );
+#ifndef SWIG
+    /* Invalid: Throws assert if it is used */
+    CV_WRAP virtual bool train( const cv::Mat& trainData, int tflag,
+                       const cv::Mat& responses, const cv::Mat& varIdx=cv::Mat(),
+                       const cv::Mat& sampleIdx=cv::Mat(), const cv::Mat& varType=cv::Mat(),
+                       const cv::Mat& missingDataMask=cv::Mat(),
+                       CvDTreeParams params=CvDTreeParams() );
+
+#endif
     virtual void read( CvFileStorage* fs, CvFileNode* node );
     virtual void read( CvFileStorage* fs, CvFileNode* node,
                        CvDTreeTrainData* data );
     /* dummy methods to avoid warnings: END */
+
+    /* This is the only valid signature to train the ForestTree */
+    virtual bool train( CvDTreeTrainData* trainData, const CvMat* _subsample_idx, CvRTrees* forest );
 
 protected:
     friend struct cv::ForestTreeBestSplitFinder;
@@ -1146,8 +1160,6 @@ public:
     CvBoostTree();
     virtual ~CvBoostTree();
 
-    virtual bool train( CvDTreeTrainData* trainData,
-                        const CvMat* subsample_idx, CvBoost* ensemble );
 
     virtual void scale( double s );
     virtual void read( CvFileStorage* fs, CvFileNode* node,
@@ -1155,17 +1167,35 @@ public:
     virtual void clear();
 
     /* dummy methods to avoid warnings: BEGIN */
+    /* Invalid: Throws assert if it is used */
     virtual bool train( const CvMat* trainData, int tflag,
                         const CvMat* responses, const CvMat* varIdx=0,
                         const CvMat* sampleIdx=0, const CvMat* varType=0,
                         const CvMat* missingDataMask=0,
                         CvDTreeParams params=CvDTreeParams() );
+
+    /* Invalid: Throws assert if it is used */
     virtual bool train( CvDTreeTrainData* trainData, const CvMat* _subsample_idx );
+    /* Invalid: Throws assert if it is used */
+    virtual bool train( CvMLData* trainData, CvDTreeParams params=CvDTreeParams() );
+#ifndef SWIG
+    /* Invalid: Throws assert if it is used */
+    CV_WRAP virtual bool train( const cv::Mat& trainData, int tflag,
+                       const cv::Mat& responses, const cv::Mat& varIdx=cv::Mat(),
+                       const cv::Mat& sampleIdx=cv::Mat(), const cv::Mat& varType=cv::Mat(),
+                       const cv::Mat& missingDataMask=cv::Mat(),
+                       CvDTreeParams params=CvDTreeParams() );
+
+#endif
 
     virtual void read( CvFileStorage* fs, CvFileNode* node );
     virtual void read( CvFileStorage* fs, CvFileNode* node,
                        CvDTreeTrainData* data );
     /* dummy methods to avoid warnings: END */
+
+    /* This is the only valid signature to train the ForestTree */
+    virtual bool train( CvDTreeTrainData* trainData,
+                        const CvMat* subsample_idx, CvBoost* ensemble );
 
 protected:
 
