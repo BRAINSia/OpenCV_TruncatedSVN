@@ -258,8 +258,8 @@ private:
      * @param k_nn the number of nearest neighbors
      * @param checked_average used for debugging
      */
-    void getNeighbors(const ElementType* vec, bool do_radius, float radius, bool do_k, unsigned int k_nn,
-                      float& checked_average)
+    void getNeighbors(const ElementType* vec, bool /* NOT USED do_radius */, float radius, bool do_k, unsigned int k_nn,
+                      float& /* NOT USED checked_average */)
     {
         static std::vector<ScoreIndexPair> score_index_heap;
 
