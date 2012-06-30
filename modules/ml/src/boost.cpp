@@ -110,7 +110,7 @@ CvBoostTree::train( CvDTreeTrainData* _train_data,
     return do_train( _subsample_idx );
 }
 
-
+/*Invalid: These functions are only here to ensure that the base class methods are not called */
 bool
 CvBoostTree::train( const CvMat*, int, const CvMat*, const CvMat*,
                     const CvMat*, const CvMat*, const CvMat*, CvDTreeParams )
@@ -119,13 +119,32 @@ CvBoostTree::train( const CvMat*, int, const CvMat*, const CvMat*,
     return false;
 }
 
-
 bool
 CvBoostTree::train( CvDTreeTrainData*, const CvMat* )
 {
     assert(0);
     return false;
 }
+
+bool
+CvBoostTree::train( CvMLData* , CvDTreeParams)
+{
+    assert(0);
+    return false;
+}
+
+#ifndef SWIG
+CV_WRAP bool
+CvBoostTree::train( const cv::Mat& , int ,
+                     const cv::Mat& , const cv::Mat& ,
+                     const cv::Mat& , const cv::Mat& ,
+                     const cv::Mat& ,
+                     CvDTreeParams )
+{
+    assert(0);
+    return false;
+}
+#endif
 
 
 void
